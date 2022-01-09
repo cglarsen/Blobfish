@@ -98,15 +98,14 @@ public class Blobfish {
 
     private func setupReachability() {
         reachabilityManager = NetworkReachabilityManager(host: "http://google.com")
-        reachabilityManager?.listener = { state in
-            switch state {
+        self.reachabilityManager?.startListening(onUpdatePerforming: { networkStatusListener in
+            switch networkStatusListener {
             case .reachable(_):
                 self.hideOverlayBar()
             default:
                 break
             }
-        }
-        reachabilityManager?.startListening()
+        })
     }
     
     // MARK: - Alert -
